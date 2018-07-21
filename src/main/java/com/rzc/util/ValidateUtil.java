@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public class ValidateUtil {
     /**
-     * 判断Object是否为null
+     * @Description: 判断Object是否为null
      * @param obj Object
      * @return boolean
      */
@@ -18,7 +18,7 @@ public class ValidateUtil {
         return obj == null;
     }
     /**
-     * 判断String是否为null或“”
+     * @Description: 判断String是否为null或“”
      * @param obj Object
      * @return boolean
      */
@@ -26,34 +26,93 @@ public class ValidateUtil {
 
         return (obj == null || obj.equals(""));
     }
-
+    
+    /** 
+     *
+     * @Description: 判断Array是否为null或者size为0
+     * @param obj Object
+     * @return: boolean 
+     *
+     */
     public static boolean isEmpty(Object[] obj){
         return obj == null || obj.length == 0;
     }
-
+    
+    /** 
+     *
+     * @Description: 判断Collection是否为null或者size为0
+     * @param obj
+     * @return: boolean 
+     *
+     */ 
+      
     public static boolean isEmpty(Collection<?> obj){
         return obj == null || obj.isEmpty();
     }
 
+    /** 
+     *
+     * @Description:  判断Map是否为null或者size为0
+     * @param obj Object
+     * @return:  boolean
+     *
+     */ 
+      
     public static boolean isEmpty(Map<?,?> obj){
         return obj == null || obj.isEmpty();
     }
 
+    /**
+     * @Description: 判断Object是否不为null
+     * @param obj Object
+     * @return boolean
+     */
+      
     public static boolean isNotEmpty(Object obj){
         return !isEmpty(obj);
     }
 
+    /**
+     * @Description: 判断String是否不为null或“”
+     * @param obj Object
+     * @return boolean
+     */
+      
     public static boolean isNotEmpty(String obj){
         return !isEmpty(obj);
     }
 
+    /**
+     *
+     * @Description: 判断Array是否不为null或者size为0
+     * @param obj Object
+     * @return: boolean
+     *
+     */
+      
     public static boolean isNotEmpty(Object[] obj){
         return !isEmpty(obj);
     }
 
+    /**
+     *
+     * @Description: 判断Collection是否不为null或者size为0
+     * @param obj
+     * @return: boolean
+     *
+     */
+
     public static boolean isNotEmpty(Collection<?> obj){
         return !isEmpty(obj);
     }
+
+    /**
+     *
+     * @Description:  判断Map是否不为null或者size为0
+     * @param obj Object
+     * @return:  boolean
+     *
+     */
 
     public static boolean isNotEmpty(Map<?,?> obj){
         return !isEmpty(obj);
