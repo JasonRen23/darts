@@ -12,7 +12,8 @@ import java.lang.reflect.Method;
  * @since 2018/8/7 上午12:49
  */
 @Slf4j
-@Aspect(target = Controller.class)
+// @Aspect(target = Controller.class)
+@Aspect(pointCut = "execution(* com.rzc.bean.DartsController.helloForAspect(..))")
 public class DartsAspect implements AroundAdvice {
     @Override
     public void before(final Class<?> clz, final Method method, final Object[] args) {

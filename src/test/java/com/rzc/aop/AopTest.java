@@ -17,5 +17,6 @@ public class AopTest {
         new Ioc().doIoc();
         DartsController controller = (DartsController) beanContainer.getBean(DartsController.class);
         controller.hello();
+        controller.helloForAspect();
     }
 }

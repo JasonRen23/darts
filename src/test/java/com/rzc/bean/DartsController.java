@@ -14,7 +14,11 @@ public class DartsController {
     @Autowired
     private DartsService dartsService;
 
-    public void hello(){
+    public void hello() {
         log.info(dartsService.helloWorld());
+    }
+
+    public void helloForAspect() {
+        log.info("Hello Aspectj!");
     }
 }
