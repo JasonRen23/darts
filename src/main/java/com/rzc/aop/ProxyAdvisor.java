@@ -27,11 +27,20 @@ public class ProxyAdvisor {
      */
     private Advice advice;
 
+    /**
+     * AspectJ表达式切点匹配器
+     */
+    private ProxyPointCut pointCut;
+
 
     /**
      * 执行代理方法
      */
     public Object doProxy(Object target, Class<?> targetClass, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+        if(!pointCut.matches(method)) {
+            return proxy.invokeSuper(target, args);
+        }
+
         Object result = null;
 
         if(advice instanceof MethodBeforeAdvice) {
