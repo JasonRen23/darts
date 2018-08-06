@@ -1,5 +1,6 @@
 package com.rzc.core;
 
+import com.rzc.aop.annotation.Aspect;
 import com.rzc.core.annotation.Component;
 import com.rzc.core.annotation.Controller;
 import com.rzc.core.annotation.Repository;
@@ -46,7 +47,7 @@ public class BeanContainer {
      * 加载bean的注解列表
      */
     private static final List<Class<? extends Annotation>> BEAN_ANNOTATION
-        = Arrays.asList(Component.class, Controller.class, Service.class, Repository.class);
+        = Arrays.asList(Component.class, Controller.class, Service.class, Repository.class, Aspect.class);
 
     public void loadBeans(String basePackage) {
         if(isLoadBean()){
