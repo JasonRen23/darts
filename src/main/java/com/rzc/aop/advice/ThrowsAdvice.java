@@ -6,7 +6,7 @@ import java.lang.reflect.Method;
  * @author JasonRen
  * @since 2018/8/7 上午12:26
  */
-public interface ThrowAdvice extends Advice {
+public interface ThrowsAdvice extends Advice {
     /**
      * 环绕通知接口
      */
