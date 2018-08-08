@@ -1,14 +1,13 @@
 package com.rzc.aop;
 
 import com.rzc.aop.advice.Advice;
-import com.rzc.aop.advice.AfterReturnAdvice;
+import com.rzc.aop.advice.AfterReturningAdvice;
 import com.rzc.aop.advice.MethodBeforeAdvice;
-import com.rzc.aop.advice.ThrowAdvice;
+import com.rzc.aop.advice.ThrowsAdvice;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import net.sf.cglib.proxy.MethodProxy;
 
 import java.lang.reflect.Method;
 
@@ -32,34 +31,63 @@ public class ProxyAdvisor {
      */
     private ProxyPointCut pointCut;
 
+    /**
+     * 执行顺序
+     */
+    private int order;
+
+
+    // public Object doProxy(Object target, Class<?> targetClass, Method method, Object[] args, MethodProxy proxy) throws Throwable {
+    //     if(!pointCut.matches(method)) {
+    //         return proxy.invokeSuper(target, args);
+    //     }
+    //
+    //     Object result = null;
+    //
+    //     if(advice instanceof MethodBeforeAdvice) {
+    //         ((MethodBeforeAdvice) advice).before(targetClass, method, args);
+    //     }
+    //     try{
+    //         //执行目标类的方法
+    //         result = proxy.invokeSuper(target, args);
+    //         if(advice  instanceof AfterReturningAdvice) {
+    //             ((AfterReturningAdvice) advice).afterReturning(targetClass, result, method, args);
+    //         }
+    //     }catch(Exception e){
+    //         if (advice instanceof ThrowsAdvice) {
+    //             ((ThrowsAdvice) advice).afterThrowing(targetClass, method, args, e);
+    //         }else {
+    //             throw new Throwable(e);
+    //         }
+    //     }
+    //
+    //     return result;
+    // }
 
     /**
      * 执行代理方法
      */
-    public Object doProxy(Object target, Class<?> targetClass, Method method, Object[] args, MethodProxy proxy) throws Throwable {
-        if(!pointCut.matches(method)) {
-            return proxy.invokeSuper(target, args);
-        }
-
+    public Object doProxy(AdviceChain adviceChain) throws Throwable {
         Object result = null;
+        Class<?> targetClass = adviceChain.getTargetClass();
+        Method method = adviceChain.getMethod();
+        Object[] args = adviceChain.getArgs();
 
-        if(advice instanceof MethodBeforeAdvice) {
+        if (advice instanceof MethodBeforeAdvice) {
             ((MethodBeforeAdvice) advice).before(targetClass, method, args);
         }
-        try{
-            //执行目标类的方法
-            result = proxy.invokeSuper(target, args);
-            if(advice  instanceof AfterReturnAdvice) {
-                ((AfterReturnAdvice) advice).afterReturning(targetClass, result, method, args);
+        try {
+            result = adviceChain.doAdviceChain(); //执行代理链方法
+            if (advice instanceof AfterReturningAdvice) {
+                ((AfterReturningAdvice) advice).afterReturning(targetClass, result, method, args);
             }
-        }catch(Exception e){
-            if (advice instanceof ThrowAdvice) {
-                ((ThrowAdvice) advice).afterThrowing(targetClass, method, args, e);
-            }else {
+        } catch (Exception e) {
+            if (advice instanceof ThrowsAdvice) {
+                ((ThrowsAdvice) advice).afterThrowing(targetClass, method, args, e);
+            } else {
                 throw new Throwable(e);
             }
         }
-
         return result;
     }
 }
