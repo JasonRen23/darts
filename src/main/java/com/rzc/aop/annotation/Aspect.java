@@ -17,6 +17,6 @@ public @interface Aspect {
     /**
      * 切点表达式
      */
-    String pointCut() default "";
+    String pointcut() default "";
 }
 
