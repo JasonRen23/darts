@@ -48,3 +48,9 @@ darts是一个轻量、优雅的MVC框架，提供了类似于<code>Spring</code
 后台日志如下：
 
 ![](https://ws1.sinaimg.cn/large/73d640f7ly1fu3xir1vqyj21ls04gdhs.jpg)
+
+## 致谢
+本项目已参考或即将参考以下优秀的框架：
+- [doodle](https://github.com/zzzzbw/doodle)
+- [blade](https://github.com/lets-blade/blade) 
+- [latke](https://github.com/b3log/latke)
