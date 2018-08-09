@@ -1,7 +1,6 @@
 package com.rzc.mvc;
 
-import com.rzc.mvc.handler.ControllerHandler;
-import com.rzc.mvc.render.ResultRender;
+import com.rzc.mvc.handler.*;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.servlet.ServletException;
@@ -9,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author JasonRen
@@ -17,29 +18,36 @@ import java.io.IOException;
 @Slf4j
 public class DisPatcherServlet extends HttpServlet {
 
-    private ControllerHandler controllerHandler = new ControllerHandler();
+    /**
+     * 请求执行链
+     */
+   private final List<Handler> HANDLER = new ArrayList<>();
 
-    private ResultRender resultRender = new ResultRender();
-
-
+    /**
+     * 初始化Servlet
+     * @throws ServletException ServletException
+     */
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //设置请求编码方式
-        request.setCharacterEncoding("UTF-8");
-        //获取请求方法和请求路径
-        String requestMethod = request.getMethod();
-        String requestPath = request.getPathInfo();
-        log.info("[DartsConfig] {} {}", requestMethod, requestPath);
-        if(requestPath.endsWith("/")) {
-            requestPath = requestPath.substring(0, requestPath.length() - 1);
-        }
+    public void init() throws ServletException {
+        HANDLER.add(new PreRequestHandler());
+        HANDLER.add(new SimpleUrlHandler(getServletContext()));
+        HANDLER.add(new JspHandler(getServletContext()));
+        HANDLER.add(new ControllerHandler());
+    }
 
-        ControllerInfo controllerInfo = controllerHandler.getController(requestMethod, requestPath);
-        log.info("{}", controllerInfo);
-        if(null == controllerInfo) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-            return;
-        }
-        resultRender.invokeController(request, response, controllerInfo);
+
+    /**
+     * 执行请求
+     *
+     * @param req {@link HttpServletRequest}
+     * @param resp {@link HttpServletResponse}
+     * @throws ServletException ServletException
+     * @throws IOException IOException
+     */
+    @Override
+    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
+        RequestHandlerChain handlerChain = new RequestHandlerChain(HANDLER.iterator(), req, resp);
+        handlerChain.doHandlerChain();
+        handlerChain.doRender();
     }
 }
