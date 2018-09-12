@@ -58,10 +58,10 @@ public class ResultRender {
     }
 
     /**
-     *  获取http中的参数
-     * @param  request Servlet请求
-     * @return 参数集合
+     * 获取http中的参数
      *
+     * @param request Servlet请求
+     * @return 参数集合
      */
 
     private Map<String, String> getRequestParams(HttpServletRequest request) {
@@ -76,34 +76,34 @@ public class ResultRender {
     }
 
     /**
-     *  实例化方法参数
-     * @param  methodParams 方法参数
-     * @param requestParams 请求参数
-     * @return  实例化方法参数集合
+     * 实例化方法参数
      *
+     * @param methodParams  方法参数
+     * @param requestParams 请求参数
+     * @return 实例化方法参数集合
      */
 
     private List<Object> instantiateMethodArgs(Map<String, Class<?>> methodParams, Map<String, String> requestParams) {
         return methodParams.keySet().stream().map(paramName -> {
-           Class<?> type = methodParams.get(paramName);
-           String requestValue = requestParams.get(paramName);
-           Object value;
-           if (null == requestValue) {
-               value = CastUtil.primitiveNull(type);
-           } else {
-               value = CastUtil.convert(type, requestValue);
-           }
-           return value;
+            Class<?> type = methodParams.get(paramName);
+            String requestValue = requestParams.get(paramName);
+            Object value;
+            if (null == requestValue) {
+                value = CastUtil.primitiveNull(type);
+            } else {
+                value = CastUtil.convert(type, requestValue);
+            }
+            return value;
         }).collect(Collectors.toList());
     }
 
     /**
-     *  Controller方法执行后返回值解析
-     * @param controllerInfo 控制器信息
-     * @param result 结果
-     * @param request 请求
-     * @param response 响应
+     * Controller方法执行后返回值解析
      *
+     * @param controllerInfo 控制器信息
+     * @param result         结果
+     * @param request        请求
+     * @param response       响应
      */
 
     private void resultResolver(ControllerInfo controllerInfo, Object result, HttpServletRequest request, HttpServletResponse response) {
@@ -120,7 +120,7 @@ public class ResultRender {
             try (PrintWriter writer = response.getWriter()) {
                 writer.write(JSON.toJSONString(result));
                 writer.flush();
-            }catch(IOException e){
+            } catch (IOException e) {
                 log.error("转发请求失败", e);
             }
         } else {

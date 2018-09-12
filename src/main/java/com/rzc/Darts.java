@@ -31,6 +31,7 @@ public final class Darts {
 
     /**
      * 启动
+     *
      * @param bootClass 启动类
      */
     public static void run(Class<?> bootClass) {
@@ -39,6 +40,7 @@ public final class Darts {
 
     /**
      * 启动
+     *
      * @param configuration 配置类
      */
     public static void run(Configuration configuration) {
@@ -47,10 +49,11 @@ public final class Darts {
 
     /**
      * 初始化
+     *
      * @param configuration 配置类
      */
     private void start(Configuration configuration) {
-        try{
+        try {
             Darts.configuration = configuration;
             String basepackage = configuration.getBootClass().getPackage().getName();
             BeanContainer.getInstance().loadBeans(basepackage);
@@ -59,7 +62,7 @@ public final class Darts {
 
             server = new TomcatServer(configuration);
             server.startServer();
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("Darts 启动失败了！", e);
         }
     }

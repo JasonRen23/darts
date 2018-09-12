@@ -57,14 +57,14 @@ public class RequestHandlerChain {
         this.responseStatus = HttpServletResponse.SC_OK;
     }
 
-    public void doHandlerChain(){
-        try{
+    public void doHandlerChain() {
+        try {
             while (handlerIterator.hasNext()) {
                 if (!handlerIterator.next().handle(this)) {
                     break;
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("doHandlerChain error", e);
             render = new InternalErrorRender();
         }
@@ -74,9 +74,9 @@ public class RequestHandlerChain {
         if (null == render) {
             render = new DefaultRender();
         }
-        try{
+        try {
             render.render(this);
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("doRender", e);
             throw new RuntimeException(e);
         }

@@ -39,6 +39,7 @@ public class Ioc {
 
     /**
      * 根据类名获取其实例或实现类
+     *
      * @param clz 类名
      * @return 实例或实现类
      */
@@ -47,7 +48,7 @@ public class Ioc {
             .ofNullable(beanContainer.getBean(clz))
             .orElseGet(() -> {
                 Class<?> implementClass = getImplementClass(clz);
-                if(null != implementClass) {
+                if (null != implementClass) {
                     return beanContainer.getBean(implementClass);
                 }
                 return null;
@@ -57,6 +58,7 @@ public class Ioc {
 
     /**
      * 获取接口的实现类
+     *
      * @param interfaceClass 接口
      * @return 实现类
      */

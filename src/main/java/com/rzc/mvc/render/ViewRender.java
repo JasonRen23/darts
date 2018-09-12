@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- *
  * 渲染页面
+ *
  * @author JasonRen
  * @since 2018/8/9 下午8:56
  */
-public class ViewRender implements Render{
+public class ViewRender implements Render {
 
     private ModelAndView modelAndView;
 

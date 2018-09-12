@@ -14,7 +14,7 @@ import java.io.PrintWriter;
  * @since 2018/8/9 下午8:56
  */
 @Slf4j
-public class JsonRender implements Render{
+public class JsonRender implements Render {
 
     private Object jsonData;
 

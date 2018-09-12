@@ -35,5 +35,4 @@ public class ControllerInfo {
     private Map<String, Class<?>> methodParameter;
 
 
-
 }

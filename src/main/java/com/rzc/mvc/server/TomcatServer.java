@@ -18,11 +18,12 @@ import java.nio.file.Files;
 
 /**
  * Tomcat服务器
+ *
  * @author JasonRen
  * @since 2018/8/9 下午3:40
  */
 @Slf4j
-public class TomcatServer implements Server{
+public class TomcatServer implements Server {
     private Tomcat tomcat;
 
     public TomcatServer() {
@@ -31,10 +32,11 @@ public class TomcatServer implements Server{
 
     /**
      * 带有配置参数的构造函数
+     *
      * @param configuration 配置类
      */
     public TomcatServer(Configuration configuration) {
-        try{
+        try {
             this.tomcat = new Tomcat();
             tomcat.setBaseDir(configuration.getDocBase());
             tomcat.setPort(configuration.getServerPort());
@@ -60,7 +62,7 @@ public class TomcatServer implements Server{
             ctx.addServletMappingDecoded("/*", "dispatcherServlet");
 
 
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("初始化Tomcat失败", e);
             throw new RuntimeException(e);
         }
@@ -81,7 +83,7 @@ public class TomcatServer implements Server{
     }
 
     private File getRootFolder() {
-        try{
+        try {
             File root;
             String runningJarPath = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath().replace("\\\\", "/");
             int lastIndexOf = runningJarPath.lastIndexOf("/target/");
@@ -92,7 +94,7 @@ public class TomcatServer implements Server{
             }
             log.info("Tomcat:application resolved root folder: [{}]", root.getAbsolutePath());
             return root;
-        }catch(URISyntaxException e){
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

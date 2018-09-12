@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author JasonRen
  * @since 2018/8/9 下午9:08
  */
-public class JspHandler implements Handler{
+public class JspHandler implements Handler {
 
     private static final String JSP_SERVLET = "jsp";
 

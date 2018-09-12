@@ -16,13 +16,13 @@ import java.lang.reflect.Method;
 @Aspect(pointcut = "@within(com.rzc.core.annotation.Controller)")
 public class DartsAspect implements AroundAdvice {
     @Override
-    public void before(Class<?> clz, Method method, Object[] args) throws Throwable{
+    public void before(Class<?> clz, Method method, Object[] args) throws Throwable {
         log.info("------------------before DartsAspect1-----------------");
         log.info("Class: {}, method: {}", clz.getName(), method.getName());
     }
 
     @Override
-    public void afterReturning(Class<?> clz, Object returnValue, Method method, Object[] args) throws Throwable{
+    public void afterReturning(Class<?> clz, Object returnValue, Method method, Object[] args) throws Throwable {
         log.info("------------------after DartsAspect1-----------------");
         log.info("Class: {}, method: {}", clz, method.getName());
     }

@@ -11,7 +11,7 @@ import java.io.IOException;
  * @author JasonRen
  * @since 2018/8/9 下午8:26
  */
-public class NotFoundRender implements Render{
+public class NotFoundRender implements Render {
 
     @Override
     public void render(final RequestHandlerChain handlerChain) throws IOException {

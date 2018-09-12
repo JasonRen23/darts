@@ -21,10 +21,11 @@ public class DisPatcherServlet extends HttpServlet {
     /**
      * 请求执行链
      */
-   private final List<Handler> HANDLER = new ArrayList<>();
+    private final List<Handler> HANDLER = new ArrayList<>();
 
     /**
      * 初始化Servlet
+     *
      * @throws ServletException ServletException
      */
     @Override
@@ -39,10 +40,10 @@ public class DisPatcherServlet extends HttpServlet {
     /**
      * 执行请求
      *
-     * @param req {@link HttpServletRequest}
+     * @param req  {@link HttpServletRequest}
      * @param resp {@link HttpServletResponse}
      * @throws ServletException ServletException
-     * @throws IOException IOException
+     * @throws IOException      IOException
      */
     @Override
     protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {

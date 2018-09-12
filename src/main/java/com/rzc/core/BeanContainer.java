@@ -37,7 +37,6 @@ public class BeanContainer {
 
     /**
      * 获取Bean容器实例
-     *
      */
     public static BeanContainer getInstance() {
         return ContainerHolder.HOLDER.instance;
@@ -50,26 +49,25 @@ public class BeanContainer {
         = Arrays.asList(Component.class, Controller.class, Service.class, Repository.class, Aspect.class);
 
     public void loadBeans(String basePackage) {
-        if(isLoadBean()){
+        if (isLoadBean()) {
             log.warn("bean已经加载");
             return;
         }
 
         Set<Class<?>> classSet = ClassUtil.getPackageClass(basePackage);
         classSet.stream()
-                .filter(clz -> {
-                    for(Class<? extends Annotation> annotation : BEAN_ANNOTATION) {
-                        if(clz.isAnnotationPresent(annotation))
-                            return true;
-                    }
-                    return false;
-                })
+            .filter(clz -> {
+                for (Class<? extends Annotation> annotation : BEAN_ANNOTATION) {
+                    if (clz.isAnnotationPresent(annotation))
+                        return true;
+                }
+                return false;
+            })
             .forEach(clz -> beanMap.put(clz, ClassUtil.newInstance(clz)));
         isLoadBean = true;
     }
 
     /**
-     *
      * 是否已经加载
      */
     public boolean isLoadBean() {
@@ -169,6 +167,7 @@ public class BeanContainer {
     private enum ContainerHolder {
         HOLDER;
         private BeanContainer instance;
+
         ContainerHolder() {
             instance = new BeanContainer();
         }

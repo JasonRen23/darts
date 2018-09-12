@@ -31,7 +31,7 @@ public class SimpleUrlHandler implements Handler {
 
     public SimpleUrlHandler(ServletContext servletContext) {
         defaultServlet = servletContext.getNamedDispatcher(TOMCAT_DEFAULT_SERVLET);
-        if(null == defaultServlet) {
+        if (null == defaultServlet) {
             throw new RuntimeException("没有默认的Servlet");
         }
 
